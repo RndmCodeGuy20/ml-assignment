@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+
+body {
+    height: 100%;
+    width: 100%;
+    background: #9BE2F2;
+    padding: 0;
+    margin: 0;
+}
+
+.title-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.secondary-headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+
+}
+
+.team-container {
+    background: #FFBEE1;
+    padding: 20px 40px;
+    height: 100%;
+    border: 4px solid black;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
+    filter: drop-shadow(6px 6px 0px #000000);
+}
+
+.problem-statement {
+    text-align: justify;
+    width: 50%;
+    margin-left: 20px;
+    list-style-position: inside;
+    list-style-type: upper-alpha;
+    background: #FFBEE1;
+    padding: 20px 40px;
+    border: 4px solid black;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
+    filter: drop-shadow(6px 6px 0px #000000);
+}
+
+
+.main-container {
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    text-align: center;
+}
+
+.team-container {
+    list-style-type: circle;
+}
+
+.text-box {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-title {
+    font-size: 32px;
+    font-family: 'Bebas Neue', sans-serif;
+    background: black;
+    color: white;
+    padding: 10px;
+    text-decoration: underline;
+    width: max-content;
+}
+
+.centered {
+    margin: 0 auto 0 auto;
+}
+
+.text-body {
+    padding: 20px 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 20px;
+}
+
+.code {
+    /*border: 4px dotted transparent;*/
+    /*border-radius: 50px;*/
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+.code-block {
+    padding: 10px;
+    background: #FFFFF4;
+    font-family: 'JetBrains Mono', serif;
+    font-size: 14px;
+    width: 70%;
+    border: 2px solid black;
+    border-radius: 6px;
+    filter: drop-shadow(6px 6px 0px #000000);
+    margin: 20px auto 20px auto;
+}
+
+.hr {
+    height: 0;
+    border: 3px dashed black;
+}
+
+.output {
+    background: #F0E7EA;
+}
+
+.output table {
+    width: 100%;
+    align-items: center;
+    border-radius: 2px;
+}
+
+thead {
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+table td {
+    text-align: center;
+}
+
+tbody tr:hover {
+    background: #C9CBF4;
+    transition: ease-in 0.15s;
+}
+
+tbody tr {
+    transition: ease-in 0.15s;
+    border-radius: 6px;
+}
+
+.plots {
+    display: flex;
+    background: #F0E7EA;
+    padding: 20px 10px;
+    border-radius: 6px;
+    gap: 5rem;
+    filter: drop-shadow(6px 6px 0px #000000);
+    margin: 20px auto 20px auto;
+    width: 90%;
+    border: 2px solid black
+}
+
+.plot {
+    /*background: url("../plots/sepal_scatter_l.png") no-repeat;*/
+    height: 458px;
+    width: 563px;
+    background-size: contain;
+    border-radius: 6px;
+    border: 1px solid black;
+    background: white;
+}
+
+.sep_l {
+    background: url("../plots/sepal_scatter_l.png") no-repeat;
+}
+
+.sep_l_v {
+    background: url("../plots/s_len_wid.png") no-repeat;
+}
+
+.pet_l_v {
+    background: url("../plots/p_len_wid.png") no-repeat;
+}
+
+.pet_l {
+    background: url("../plots/petal_scatter_l.png");
+}
+
+.pet_l_bound {
+    background: url("../plots/pet_l_bound.png");
+}
+
+.pair {
+    background: url("../plots/pait_plot.png");
+    height: 983px;
+    width: 1138px;
+    background-size: cover;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.svm_ker {
+    background: url("../plots/svm_ker.png");
+    background-size: cover;
+}
+
+.desc {
+    font-family: 'Inria Sans', sans-serif;
+    text-align: justify;
+}
+
+.form-container {
+    width: max-content;
+    background: #DAFC3D;
+    border-radius: 20px;
+    border: 4px solid black;
+    padding: 20px 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    filter: drop-shadow(6px 6px 0px #000000);
+}
+
+.form-container label {
+    font-size: 24px;
+    color: black;
+}
+
+.res {
+    font-size: 32px;
+}

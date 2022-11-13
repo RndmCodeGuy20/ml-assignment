@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML Assignment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/stylesheets/style.css">
+    <link rel="stylesheet" href="../static/stylesheets/customhr.css">
+</head>
+<body>
+<div class="title-header">
+    <div class="main-header">
+        Shri Ramdeobaba College Of Engineering and Management <br> Nagpur, 440013
+    </div>
+    <div class="secondary-headers">
+        <div class="team-container">
+            <ul style="list-style-type: disc">
+                <li>Anushka Khandelwal- 06</li>
+                <li>Amna Patel - 22</li>
+                <li>Pratik Agrawal - 57</li>
+                <li>Shantanu Mane - 63</li>
+            </ul>
+        </div>
+        <div class="problem-statement">
+            <strong>AIM</strong> : Create a GUI that include :
+            <ol style="list-style-type: upper-alpha;">
+                <li> Consider any dataset of your choice</li>
+                <li> Display the features of the dataset</li>
+                <li> You will implement decision tree, neural network and support vector
+                    machine for it.
+                </li>
+                <li> These three algorithms will be available in dropdown box. User will
+                    select ay one algorithm. Then your program will show output by using
+                    corresponding algorithm with its accuracy.
+                </li>
+                <li> Also plot comparative plot of accuracies of all the three algorithms.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="text-box">
+    <div class="text-title">Know The Data ➡️</div>
+    <div class="text-body">
+        Data used here is the iris dataset and blah blah blah...
+    </div>
+    <div class="code">
+        <div class="code-block">
+            import pandas as <br>
+            import numpy as np<br>
+            import matplotlib.pyplot as plt<br>
+            import seaborn as sns<br>
+            from matplotlib.patches import Rectangle<br>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            data_df = pd.read_csv('./assets/iris-data-clean.csv')
+            <br><br>
+            data_df.head()
+        </div>
+        <div class="code-block output">
+            <table class="output-table">
+                <thead>
+                <tr>
+                    <th>Sepal Length</th>
+                    <th>Sepal Width</th>
+                    <th>Petal Length</th>
+                    <th>Petal Width</th>
+                    <th style="border-right: none">Species</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>5.1</td>
+                    <td>3.5</td>
+                    <td>1.4</td>
+                    <td>0.2</td>
+                    <td>Iris-setosa</td>
+                </tr>
+                <tr>
+                    <td>4.9</td>
+                    <td>3.0</td>
+                    <td>1.4</td>
+                    <td>0.2</td>
+                    <td>Iris-setosa</td>
+                </tr>
+                <tr>
+                    <td>4.7</td>
+                    <td>3.2</td>
+                    <td>1.3</td>
+                    <td>0.2</td>
+                    <td>Iris-setosa</td>
+                </tr>
+                <tr>
+                    <td>4.6</td>
+                    <td>3.1</td>
+                    <td>1.5</td>
+                    <td>0.2</td>
+                    <td>Iris-setosa</td>
+                </tr>
+                <tr>
+                    <td>5.0</td>
+                    <td>3.6</td>
+                    <td>1.4</td>
+                    <td>0.2</td>
+                    <td>Iris-setosa</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            data_df.describe()
+        </div>
+        <div class="code-block output">
+            <table class="output-table">
+                <thead>
+                <tr>
+                    <th>Sepal Length</th>
+                    <th>Sepal Width</th>
+                    <th>Petal Length</th>
+                    <th>Petal Width</th>
+                    <th style="border-right: none">Species</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>count</td>
+                    <td>150.000000</td>
+                    <td>150.000000</td>
+                    <td>150.000000</td>
+                    <td>150.000000</td>
+                </tr>
+                <tr>
+                    <td>mean</td>
+                    <td>5.847651</td>
+                    <td>3.059732</td>
+                    <td>3.775168</td>
+                    <td>1.209732</td>
+                </tr>
+                <tr>
+                    <td>std</td>
+                    <td>0.799542</td>
+                    <td>0.430104</td>
+                    <td>1.758720</td>
+                    <td>0.762191</td>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>4.400000</td>
+                    <td>2.000000</td>
+                    <td>1.000000</td>
+                    <td>0.100000</td>
+                </tr>
+                <tr>
+                    <td>25%</td>
+                    <td>5.100000</td>
+                    <td>2.800000</td>
+                    <td>1.600000</td>
+                    <td>0.300000</td>
+                </tr>
+                <tr>
+                    <td>50%</td>
+                    <td>5.800000</td>
+                    <td>3.000000</td>
+                    <td>4.400000</td>
+                    <td>1.300000</td>
+                </tr>
+                <tr>
+                    <td>75%</td>
+                    <td>6.400000</td>
+                    <td>3.300000</td>
+                    <td>5.100000</td>
+                    <td>1.800000</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>7.900000</td>
+                    <td>4.400000</td>
+                    <td>6.900000</td>
+                    <td>2.500000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="code">
+        <div class="code-block">
+            data_df['Species'].value_counts()
+        </div>
+        <div class="code-block output">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Species</th>
+                    <th>count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Iris-setosa</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Iris-versicolor</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Iris-virginica</td>
+                    <td>50</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="code">
+        <div class="code-block">
+            fig, ax = plt.subplots()
+            <br><br>
+            ax.scatter(data_df.index, data_df['sepal_length_cm'], color=colors[3], s=5)
+            <br><br>
+            ax.add_patch(Rectangle((0, 4), 50, 4, alpha=0.3, color=colors[0]))<br>
+            ax.add_patch(Rectangle((50, 4), 50, 4, alpha=0.2, color=colors[4]))<br>
+            ax.add_patch(Rectangle((100, 4), 50, 4, alpha=0.2, color=colors[8]))
+            <br><br>
+            ax.legend(["Sepal Length", "Setosa", "Versicolor", "Virginica"])
+            <br><br>
+            plt.xlabel("Flower Species", font="Inria Sans", weight="500")<br>
+            plt.ylabel("Sepal Length (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.title("Sepal Length Scatter Plot", font="Bebas Neue", size="18", weight="700")
+            <br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot sep_l"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            fig, ax = plt.subplots()
+            <br><br>
+            ax.scatter(data_df.index, data_df['petal_length_cm'], color=colors[9], s=5)
+            <br><br>
+            ax.add_patch(Rectangle((0, 0), 50, 7, alpha=0.3, color=colors[0]))<br>
+            ax.add_patch(Rectangle((50, 0), 50, 7, alpha=0.2, color=colors[4]))<br>
+            ax.add_patch(Rectangle((100, 0), 50, 7, alpha=0.2, color=colors[8]))
+            <br><br>
+            ax.legend(["Petal Length", "Setosa", "Versicolor", "Virginica"])
+            <br><br>
+            plt.xlabel("Flower Species", font="Inria Sans", weight="500")<br>
+            plt.ylabel("Petal Length (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.title("Petal Length Scatter Plot", font="Bebas Neue", size="18", weight="700")
+            <br><br>
+
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot pet_l"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            plt.scatter(data_df["sepal_length_cm"].loc[data_df["class"] == "Iris-setosa"],
+            data_df["sepal_width_cm"].loc[data_df["class"] == "Iris-setosa"], color=colors[2], s=15, alpha=0.6)
+            <br><br>
+            plt.scatter(data_df["sepal_length_cm"].loc[data_df["class"] == "Iris-virginica"],
+            data_df["sepal_width_cm"].loc[data_df["class"] == "Iris-virginica"], color=colors[4], s=15, alpha=0.5)
+            <br><br>
+            plt.scatter(data_df["sepal_length_cm"].loc[data_df["class"] == "Iris-versicolor"],
+            data_df["sepal_width_cm"].loc[data_df["class"] == "Iris-versicolor"], color=colors[11], s=15, alpha=0.7)
+            <br><br>
+            plt.legend(["Setosa", "Virginica", "Versicolor"])<br>
+            plt.xlabel("Sepal Length (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.ylabel("Sepal Width (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.title("Sepal Length vs Sepal Width", font="Bebas Neue", size="18", weight="700")
+            <br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot sep_l_v"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            plt.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-setosa"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-setosa"], color=colors[2], s=15, alpha=0.6)
+            <br><br>
+            plt.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-virginica"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-virginica"], color=colors[4], s=15, alpha=0.5)
+            <br><br>
+            plt.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-versicolor"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-versicolor"], color=colors[11], s=15, alpha=0.7)
+            <br><br>
+            plt.legend(["Setosa", "Virginica", "Versicolor"])<br>
+            plt.xlabel("Petal Length (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.ylabel("Petal Width (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.title("Petal Length vs Petal Width", font="Bebas Neue", size="18", weight="700")
+            <br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot pet_l_v"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            fig, ax = plt.subplots()
+            <br><br>
+            ax.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-setosa"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-setosa"], color=colors[2], s=15, alpha=1)
+            <br><br>
+            ax.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-virginica"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-virginica"], color=colors[4], s=15, alpha=1)
+            <br><br>
+            ax.scatter(data_df["petal_length_cm"].loc[data_df["class"] == "Iris-versicolor"],
+            data_df["petal_width_cm"].loc[data_df["class"] == "Iris-versicolor"], color=colors[11], s=15, alpha=1)
+            <br><br>
+            ax.add_patch(Rectangle((0.9, 0), 1.1, .6, alpha=0.1, color=colors[2]))<br>
+            ax.add_patch(Rectangle((2.9, 0.95), 2.2, .9, alpha=0.1, color=colors[11]))<br>
+            ax.add_patch(Rectangle((4.4, 1.3), 2.6, 1.3, alpha=0.1, color=colors[4]))
+            <br><br>
+            plt.legend(["Setosa", "Virginica", "Versicolor"])<br>
+            plt.xlabel("Petal Length (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.ylabel("Petal Width (in cm.)", font="Inria Sans", weight="500")<br>
+            plt.title("Petal Length vs Petal Width", font="Bebas Neue", size="18", weight="700")
+            <br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot pet_l_bound"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block" style="text-align: left">
+            sns.set()<br>
+            sns.pairplot(data_df[['sepal_length_cm', 'sepal_width_cm', 'petal_length_cm', 'petal_width_cm', 'class']],
+            hue="class", diag_kind="kde", palette=palette, plot_kws=dict(alpha=0.75, s=15))
+            <br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="pair"></div>
+
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block" style="text-align: left">
+            from sklearn import svm
+            <br><br>
+            X = data_df[['sepal_length_cm', 'sepal_width_cm']].values<br>
+            y = data_df['species'].values
+            <br><br>
+            h = 0.02
+            c = 1.0
+            <br><br>
+            svc_lin = svm.SVC(kernel='linear', C=c).fit(X, y)<br>
+            svc_rbf = svm.SVC(kernel='rbf', C=c, gamma=0.7).fit(X, y)<br>
+            svc_poly = svm.SVC(kernel='poly', C=c, degree=3).fit(X, y)
+            <br><br>
+            svc = svm.LinearSVC(C=c).fit(X, y)
+            <br><br>
+            x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1<br>
+            y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1<br>
+            xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+            np.arange(y_min, y_max, h))
+            <br><br>
+            titles = ['SVC with linear model',<br>
+            'SVC with rbf model',<br>
+            'SVC with poly model',<br>
+            'LinearSVC (linear model)']
+            <br><br>
+            for i, clf in enumerate((svc_lin, svc_rbf, svc_poly, svc)):<br>
+            &emsp;&emsp;plt.subplot(2, 2, i + 1)<br>
+            &emsp;&emsp;plt.subplots_adjust(wspace=0.4, hspace=0.4)
+            &emsp;&emsp;<br><br>
+            &emsp;&emsp;Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])<br>
+            &emsp;&emsp;Z = Z.reshape(xx.shape)
+            &emsp;&emsp;<br><br>
+            &emsp;&emsp;plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')
+            &emsp;&emsp;<br><br>
+            &emsp;&emsp;plt.scatter(X[:, 0], X[:, 1], c=y * 100)<br>
+            &emsp;&emsp;plt.xlabel('Sepal Length', font="Inria Sans", weight="500")<br>
+            &emsp;&emsp;plt.ylabel('Sepal Width', font="Inria Sans", weight="500")<br>
+            &emsp;&emsp;plt.xlim(xx.min(), xx.max())<br>
+            &emsp;&emsp;plt.ylim(yy.min(), yy.max())
+            &emsp;&emsp;<br><br>
+            &emsp;&emsp;plt.xticks(())<br>
+            &emsp;&emsp;plt.yticks(())<br>
+            &emsp;&emsp;plt.title(titles[i], font="Bebas Neue", weight="700", size=18)
+            &emsp;&emsp;<br><br>
+            plt.show()
+        </div>
+        <div class="plots">
+            <div class="plot svm_ker"></div>
+            <div class="desc">
+                Description about the plot
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-box" style="margin-top: 40px;">
+    <div class="text-title">Training Our Model ➡️</div>
+    <div class="text-body">
+        Data used here is the iris dataset and blah blah blah...
+    </div>
+    <div class="code">
+        <div class="code-block">
+            from sklearn.model_selection import train_test_split
+            <br><br>
+            X = data_df.drop(['class', 'species'], axis=1)<br>
+            y = data_df['species']<br>
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+        </div>
+        <div class="code-block">
+            X_train.head()
+        </div>
+        <div class="code-block output">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th title="Field #1">id</th>
+                    <th title="Field #2">sepal_length_cm</th>
+                    <th title="Field #3">sepal_width_cm</th>
+                    <th title="Field #4">petal_length_cm</th>
+                    <th title="Field #5">petal_width_cm</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="right">28</td>
+                    <td align="right">5.2</td>
+                    <td align="right">3.4</td>
+                    <td align="right">1.4</td>
+                    <td align="right">0.2</td>
+                </tr>
+                <tr>
+                    <td align="right">87</td>
+                    <td align="right">5.6</td>
+                    <td align="right">3.0</td>
+                    <td align="right">4.1</td>
+                    <td align="right">1.3</td>
+                </tr>
+                <tr>
+                    <td align="right">128</td>
+                    <td align="right">7.2</td>
+                    <td align="right">3.0</td>
+                    <td align="right">5.8</td>
+                    <td align="right">1.6</td>
+                </tr>
+                <tr>
+                    <td align="right">46</td>
+                    <td align="right">4.6</td>
+                    <td align="right">3.2</td>
+                    <td align="right">1.4</td>
+                    <td align="right">0.2</td>
+                </tr>
+                <tr>
+                    <td align="right">79</td>
+                    <td align="right">5.5</td>
+                    <td align="right">2.4</td>
+                    <td align="right">3.8</td>
+                    <td align="right">1.1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-block">
+            y_train.head()
+        </div>
+        <div class="code-block output">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th title="Field #1">id</th>
+                    <th title="Field #2">species</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="right">28</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">87</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td align="right">128</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td align="right">46</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">79</td>
+                    <td align="right">1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-title centered">Training Using Support Vector Machines (SVM) ⬇️</div>
+    <div class="code">
+        <div class="code-block">
+            from sklearn import svm
+        </div>
+        <div class="code-block">
+            svm = SVC()<br>
+            svm.fit(X_train, y_train)
+        </div>
+        <div class="code-block">
+            y_hat = svm.predict(X_test)<br>
+            y_hat[:5]
+        </div>
+        <div class="code-block output">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th title="Field #1">id</th>
+                    <th title="Field #2">out</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="right">0</td>
+                    <td align="right">1</td>
+                </tr>
+                <tr>
+                    <td align="right">1</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">2</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td align="right">3</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td align="right">4</td>
+                    <td align="right">1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            print(f"Accuracy of the SVM model is : {svm.score(X_test, y_test) * 100}%")
+        </div>
+        <div class="code-block output">
+            Accuracy of the SVM model is : 93.3333%
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            import pickle
+            <br><br>
+            pickle.dump(svm, open("SVM_Model.sav", "wb"))
+        </div>
+        <div class="code-block">
+            savedModel = pickle.load(open("SVM_Model.sav", 'rb'))
+            <br><br>
+            savedModel.predict([[6.0, 2.2, 4.0, 1.0]])
+        </div>
+        <div class="code-block output">
+            Array([[1]])
+        </div>
+    </div>
+    <div class="text-title centered">Training Using Decision Tree ⬇️</div>
+    <div class="code">
+        <div class="code-block">
+            from sklearn.tree import DecisionTreeClassifier<br>
+            from sklearn.metrics import accuracy_score<br>
+            <br>
+            dt = DecisionTreeClassifier()
+        </div>
+        <div class="code-block">
+            dt.fit(X_train, y_train)
+        </div>
+        <div class="code-block">
+            y_hat = dt.predict(X_test)
+            <br><br>
+            y_hat[:5]
+        </div>
+        <div class="code-block output">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th title="Field #1">id</th>
+                    <th title="Field #2">out</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="right">0</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">1</td>
+                    <td align="right">2</td>
+                </tr>
+                <tr>
+                    <td align="right">2</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">3</td>
+                    <td align="right">0</td>
+                </tr>
+                <tr>
+                    <td align="right">4</td>
+                    <td align="right">1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            print(f"Accuracy of the Decision Tree model is : {round(accuracy_score(y_test, y_hat) * 100, 3)}%")
+        </div>
+        <div class="code-block output">
+            Accuracy of the Decision Tree model is : 95.556%
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            import pickle
+            <br><br>
+            pickle.dump(svm, open("SVM_Model.sav", "wb"))
+        </div>
+        <div class="code-block">
+            savedModel = pickle.load(open("DT_Model.sav", 'rb'))
+            <br><br>
+            savedModel.predict([[6.0, 2.2, 4.0, 1.0]])
+        </div>
+        <div class="code-block output">
+            Array([[1]])
+        </div>
+    </div>
+    <div class="text-title centered">Training Using Neural Networks ⬇️</div>
+    <div class="code">
+        <div class="code-block">
+            import tensorflow as tf
+        </div>
+        <div class="code-block">
+            NN = tf.keras.models.Sequential([<br>
+            &emsp;tf.keras.layers.Dense(units=128, input_dim=4, activation="relu"),<br>
+            &emsp;tf.keras.layers.Dense(units=256, activation="relu"),<br>
+            &emsp;tf.keras.layers.Dense(units=64, activation="relu"),<br>
+            &emsp;tf.keras.layers.Dense(units=3, activation="sigmoid")<br>
+            ])
+            <br><br>
+            NN.summary()
+        </div>
+        <div class="code-block output">
+            Model: "sequential"<br>
+            _________________________________________________________________<br>
+            Layer (type) &emsp;Output Shape &emsp;Param #<br>
+            =================================================================<br>
+            dense_2 (Dense) &emsp;(None, 128) &emsp;640<br>
+            <br>
+            dense_3 (Dense) &emsp;(None, 256) &emsp;33024<br>
+            <br>
+            dense_4 (Dense) &emsp;(None, 64) &emsp;16448<br>
+            <br>
+            dense_5 (Dense) &emsp;(None, 3) &emsp;195<br>
+            <br>
+            =================================================================<br>
+            Total params: 50,307<br>
+            Trainable params: 50,307<br>
+            Non-trainable params: 0<br>
+            _________________________________________________________________<br>
+            <br>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            NN.compile(loss="sparse_categorical_crossentropy", optimizer='adam', metrics=['accuracy'])
+        </div>
+
+        <div class="code-block">
+            NN.fit(X_train, y_train, batch_size=20, epochs=20, verbose=1)
+        </div>
+        <div class="code-block output">
+            Epoch 1/20<br>
+            8/8 [============================] - 0s 3ms/step - loss: 0.1404 - accuracy: 0.9732<br>
+            Epoch 2/20<br>
+            8/8 [==============================] - 0s 4ms/step - loss: 0.1466 - accuracy: 0.9195<br>
+            Epoch 3/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.1577 - accuracy: 0.9396<br>
+            Epoch 4/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.1748 - accuracy: 0.9262<br>
+            Epoch 5/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.1356 - accuracy: 0.9530<br>
+            . <br> . <br> . <br>
+            Epoch 15/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.0793 - accuracy: 0.9664<br>
+            Epoch 16/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.0831 - accuracy: 0.9732<br>
+            Epoch 17/20<br>
+            8/8 [==============================] - 0s 4ms/step - loss: 0.0806 - accuracy: 0.9664<br>
+            Epoch 18/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.0705 - accuracy: 0.9732<br>
+            Epoch 19/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.0841 - accuracy: 0.9664<br>
+            Epoch 20/20<br>
+            8/8 [==============================] - 0s 3ms/step - loss: 0.0753 - accuracy: 0.9866<br>
+            <&dagger;keras.callbacks.History at 0x1e3152c6e80>
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            y_hat = NN.predict(X_test)<br>
+            y_hat = [np.argmax(i) for i in y_hat]
+            <br><br>
+            y_hat[:5]
+        </div>
+        <div class="code-block output">
+            2/2 [==============================] - 1s 13ms/step<br>
+            [0, 2, 0, 0, 1]
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            print(f"Accuracy of the Neural Network model is : {round(accuracy_score(y_test, y_hat) * 100, 3)}%")
+        </div>
+        <div class="code-block output">
+            Accuracy of the Neural Network model is : 97.778%
+        </div>
+    </div>
+    <div class="code">
+        <div class="code-block">
+            savedModel = tf.keras.models.load_model('NN_Model.h5')<br>
+            np.argmax(savedModel.predict([[6.0, 2.2, 4.0, 1.0]]))
+        </div>
+        <div class="code-block output">
+            1
+        </div>
+    </div>
+
+</div>
+
+<!-- Form -->
+
+<div class="main-container mx-auto">
+    <div class="form-container" id="form" style="margin-top: 200px">
+        <form class="w-full max-w-lg content-center" method="post" action="/predict#form">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                           for="sepal-length">
+                        Sepal Length
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                           id="sepal-length" type="text" placeholder="xx.x" required name="sepal_length">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="sepal-width">
+                        Sepal Width
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white "
+                           id="sepal-width" type="text" placeholder="xx.x" required name="sepal_width">
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                           for="petal-length">
+                        Petal Length
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                           id="petal-length" type="text" placeholder="xx.x" required name="petal_length">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="petal-width">
+                        Petal Width
+                    </label>
+                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                           id="petal-width" type="text" placeholder="xx.x" required name="petal_width">
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 px-1 mb-2 md:mb-0 flex flex-wrap">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                    State
+                </label>
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state" name="model">
+                        <option>Decision Tree</option>
+                        <option>Neural Networks</option>
+                        <option>Support Vector Machines</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+            <input type="submit" value="Predict"
+                   class="bg-gray-300 text-black hover:bg-gray-500 hover:cursor-pointer font-bold py-2 px-4 mx-auto border border-black black rounded my-4">
+        </form>
+        <div class="columns-2">
+            <div class="res">RESULT :</div>
+            <div class="res">{{result}}</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

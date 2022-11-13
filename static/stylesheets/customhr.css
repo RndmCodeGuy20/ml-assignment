@@ -1,0 +1,82 @@
+.separator {
+    margin-top: 25px;
+    margin-bottom: 80px;
+    border: 0;
+}
+
+.separator--line {
+    border: 0;
+    border-bottom: 5px solid black;
+    width: 0;
+    animation: separator-width 1s ease-out forwards;
+}
+
+@keyframes separator-width {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.separator--dots {
+    overflow: visible;
+    border: 0;
+    content: "";
+    background-color: black;
+    display: block;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.separator--dots:before {
+    content: "";
+    background-color: black;
+    display: block;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    position: absolute;
+    left: -32px;
+    animation: dot-move-left 1s ease-out forwards;
+}
+
+.separator--dots:after {
+    content: "";
+    background-color: black;
+    display: block;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    position: absolute;
+    left: 32px;
+    animation: dot-move-right 1s ease-out forwards;
+}
+
+@keyframes dot-move-right {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 32px;
+    }
+}
+
+@keyframes dot-move-left {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -32px;
+    }
+}
+
+.separator--dotter {
+    border: 0;
+    border-bottom: 5px dotted black;
+    width: 0;
+    animation: separator-width 1.5s ease-out forwards;
+}
