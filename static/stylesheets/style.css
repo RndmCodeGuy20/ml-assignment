@@ -144,12 +144,12 @@ table td {
 }
 
 tbody tr:hover {
+    border-radius: 6px;
     background: #C9CBF4;
-    transition: ease-in 0.15s;
 }
 
 tbody tr {
-    transition: ease-in 0.15s;
+    transition: ease-in-out 0.15s;
     border-radius: 6px;
 }
 
@@ -278,4 +278,32 @@ li {
 
 .res {
     font-size: 32px;
+}
+
+tr:first-child:hover {
+    transition: ease-in-out 0.15s;
+    border-radius: 6px 0 0 6px;
+}
+
+tr:last-child:hover {
+    transition: ease-in-out 0.15s;
+    border-radius: 0 6px 6px 0;
+}
+
+@media only screen and (min-width: 1600px) {
+    .plots {
+        flex-direction: column;
+        width: fit-content;
+        height: 100%;
+    }
+
+    .plot {
+        width: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .desc {
+        width: 100%;
+        padding: 0 40px;
+    }
 }
